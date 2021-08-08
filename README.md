@@ -26,7 +26,7 @@ Use the following commands for training:
 python moment_localization/train.py --cfg experiments/activitynet/MSAT-64.yaml --verbose
 
 # For TACoS
-python moment_localization/train.py --cfg experiments/tacos/MSAT-128 --verbose
+python moment_localization/train.py --cfg experiments/tacos/MSAT-128.yaml --verbose
 ```
 
 #### Testing
@@ -38,7 +38,7 @@ Then, run the following commands for evaluation:
 python moment_localization/test.py --cfg experiments/activitynet/MSAT-64.yaml --verbose --split test
 
 # For TACoS
-python moment_localization/test.py --cfg experiments/tacos/MSAT-128 --verbose --split test
+python moment_localization/test.py --cfg experiments/tacos/MSAT-128.yaml --verbose --split test
 ```
 
 ## Citation
