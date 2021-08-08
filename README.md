@@ -23,7 +23,7 @@ Please download the visual features from [box drive](https://rochester.box.com/s
 Use the following commands for training:
 ```
 # For ActivityNet Captions
-python moment_localization/train.py --cfg experiments/activitynet/MSAT-64.yaml --verbose
+python moment_localization/train.py --cfg experiments/activitynet/MSAT-32.yaml --verbose
 
 # For TACoS
 python moment_localization/train.py --cfg experiments/tacos/MSAT-128.yaml --verbose
@@ -35,7 +35,7 @@ Our trained model are provided in [Baidu Yun](https://pan.baidu.com/s/1l9O7Csg47
 Then, run the following commands for evaluation: 
 ```
 # For ActivityNet Captions
-python moment_localization/test.py --cfg experiments/activitynet/MSAT-64.yaml --verbose --split test
+python moment_localization/test.py --cfg experiments/activitynet/MSAT-32.yaml --verbose --split test
 
 # For TACoS
 python moment_localization/test.py --cfg experiments/tacos/MSAT-128.yaml --verbose --split test
