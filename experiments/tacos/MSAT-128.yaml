@@ -1,0 +1,89 @@
+WORKERS: 4
+
+MODEL_DIR: ./checkpoints
+RESULT_DIR: ./results
+LOG_DIR: ./log
+DATA_DIR: ./data/TACoS
+
+DATASET:
+  NAME: TACoS
+  VIS_INPUT_TYPE: c3d
+  NO_VAL: False
+  NUM_SAMPLE_CLIPS: 256
+  TARGET_STRIDE: 2
+  NORMALIZE: True
+  RANDOM_SAMPLING: False
+
+TEST:
+  BATCH_SIZE: 16
+  RECALL: 1,5
+  TIOU: 0.3,0.5,0.7
+  EVAL_TRAIN: False
+  NMS_THRESH: 0.37
+  INTERVAL: 1.0
+
+CUDNN:
+  DETERMINISTIC: False
+  BENCHMARK: True
+
+TRAIN:
+  BATCH_SIZE: 16
+  LR: 0.0001
+  WEIGHT_DECAY: 0.0000
+  MAX_EPOCH: 100
+  CONTINUE: False
+
+LOSS:
+  NAME: bce_rescale_loss
+  PARAMS:
+    W1: 0.3
+    W2: 1.0
+    W3: 200.0
+    W4: 0.25
+
+TAN:
+
+  FRAME_MODULE:
+    NAME: FrameAvgPool
+    PARAMS:
+      INPUT_SIZE: 4096
+      HIDDEN_SIZE: 512
+      KERNEL_SIZE: 2
+      STRIDE: 2
+
+  VLBERT_MODULE:
+    NAME: TLocVLBERT
+    PARAMS:
+      object_word_embed_mode: 2
+      input_transform_type: 1
+      visual_size: 4096
+      hidden_size: 512
+      num_hidden_layers: 6
+      num_attention_heads: 32
+      intermediate_size: 512
+      hidden_act: "gelu"
+      hidden_dropout_prob: 0.1
+      attention_probs_dropout_prob: 0.1
+      max_position_embeddings: 512
+      type_vocab_size: 2
+      vocab_size: 1514
+      initializer_range: 0.02
+      visual_scale_text_init: 1.0
+      visual_scale_object_init: 1.0
+      visual_ln: false
+      word_embedding_frozen: False
+      with_pooler: True
+
+      BERT_MODEL_NAME: './model/pretrained_model/bert-base-uncased'
+      BERT_PRETRAINED: ''
+      BERT_PRETRAINED_EPOCH: 0
+
+      CLASSIFIER_TYPE: "2fc"
+      CLASSIFIER_PRETRAINED: True
+      CLASSIFIER_DROPOUT: 0.1
+      CLASSIFIER_HIDDEN_SIZE: 512
+      NO_GROUNDING: True
+
+MODEL:
+  NAME: TAN
+  CHECKPOINT: ./checkpoints/TACoS/TAN_c3d/iter017108-0.4879-0.6763.pkl
