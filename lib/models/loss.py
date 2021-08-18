@@ -26,7 +26,7 @@ def bce_rescale_loss(config, logits_text, logits_visual, logits_iou, iou_mask_ma
 
     grid = torch.arange(log_p.shape[-1], device=log_p.device).repeat(log_p.shape[0], log_p.shape[1], 1)
 
-    text_loss = torch.sum(-log_p[grid==word_label.unsqueeze(2)]) / word_label.size(0)
+    text_loss = torch.sum(-log_p[grid==word_label.unsqueeze(2)]) / torch.clamp((word_mask.sum(1)>0).sum(), min=0.00000001)
 
     loss_value = config.W1*loss.sum(-1).mean() + config.W2*loss_reg.mean() + config.W3*loss_iou.mean() + config.W4*text_loss
 
